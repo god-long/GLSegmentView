@@ -13,12 +13,12 @@
   `self.segmentView = GLSegmentSlideView(frame: CGRectMake(0, 64, ScreenWidth, 50), titleArray: ["美甲天下","美","秀美甲大咖"])`
 
     
-  `//MARK: UIScrollViewDelegate
+  ` //MARK: UIScrollViewDelegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
     self.segmentView?.updateBottomLineView(scrollView.contentOffset.x)
-    }
+    }`
 
-    //MARK: SegmentSlideViewDelegate
+    ` //MARK: SegmentSlideViewDelegate
     func didSelectSegment(index: Int) {
     self.contentScrollView!.setContentOffset(CGPointMake(CGFloat(index) * ScreenWidth, 0), animated: true)
     }`

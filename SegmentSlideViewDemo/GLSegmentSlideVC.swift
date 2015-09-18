@@ -44,8 +44,8 @@ class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVC
         self.view.addSubview(self.segmentView!)
 
         
-        self.contentScrollView = UIScrollView(frame: CGRectMake(0, CGRectGetMinY(segmentView!.frame) + CGRectGetHeight(segmentView!.frame), ScreenWidth, ScreenHeight - CGRectGetMaxY(segmentView!.frame)))
-        self.contentScrollView!.backgroundColor = UIColor.grayColor()
+        self.contentScrollView = UIScrollView(frame: CGRectMake(0, CGRectGetMinY(self.segmentView!.frame) + CGRectGetHeight(segmentView!.frame), ScreenWidth, ScreenHeight - CGRectGetMaxY(self.segmentView!.frame)))
+        self.contentScrollView!.backgroundColor = UIColor.orangeColor()
         self.contentScrollView!.pagingEnabled = true
         self.contentScrollView!.bounces = false
         self.contentScrollView!.contentSize = CGSizeMake(ScreenWidth * 3, 0)

@@ -113,11 +113,10 @@ class GLSegmentSlideView: UIView {
     {
         self.currentIndex = sender.tag - tagOfBaseNumber
         
-        self.setBottomLineViewCenter(self.currentIndex)
-        
         self.delegate?.didSelectSegment(self.currentIndex)
     }
     
+    //FIXME: 1.0 因为和updateBottomLineView冲突 会造成动画错位 暂时放弃使用
     //MARK: 设置底部横线的位置 和 宽度
     private func setBottomLineViewCenter(index: Int)
     {
@@ -126,10 +125,9 @@ class GLSegmentSlideView: UIView {
         originRect.origin.x = tempButton.center.x - (self.titleWidthArray[index])/2.0
         originRect.size.width = self.titleWidthArray[index]
         
-        UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             self.bottomLineView.frame = originRect
         }, completion: nil)
-        
     }
     
     

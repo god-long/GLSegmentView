@@ -176,6 +176,7 @@
 				TargetAttributes = {
 					544727661BAAD0A70052777B = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = CEFB2D4X4X;
 					};
 					5447277B1BAAD0A70052777B = {
 						CreatedOnToolsVersion = 6.4;
@@ -352,10 +353,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 龙 许 (CJQ6GVXUZJ)";
 				INFOPLIST_FILE = SegmentSlideViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c0209886-0f0e-4226-8214-d34462e49747";
 			};
 			name = Debug;
 		};
@@ -363,10 +366,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 龙 许 (CJQ6GVXUZJ)";
 				INFOPLIST_FILE = SegmentSlideViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c0209886-0f0e-4226-8214-d34462e49747";
 			};
 			name = Release;
 		};

@@ -38,7 +38,7 @@ class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVC
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.segmentView = GLSegmentSlideView(frame: CGRectMake(0, 64, ScreenWidth, 50), titleArray: ["美甲天下","美","秀美甲大咖"])
+        self.segmentView = GLSegmentSlideView(frame: CGRectMake(0, 64, ScreenWidth, 50), titleArray: ["美天下","秀美甲","秀大咖"])
         self.segmentView?.delegate = self
         self.segmentView!.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(self.segmentView!)

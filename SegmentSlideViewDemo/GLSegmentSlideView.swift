@@ -52,6 +52,14 @@ class GLSegmentSlideView: UIView {
     /// 字体大小
     let titleSize : CGFloat = 15
     
+    /// 原始要的缩放比例
+    let originScale : CGFloat = 0.2
+    
+    /// 原始颜色值
+    let originColor : UIColor = UIColor.blackColor()
+    
+    let currentColor : UIColor = UIColor.redColor()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -73,7 +81,12 @@ class GLSegmentSlideView: UIView {
             self.extraWidth = self.extraWidth! - rect.size.width
         }
         self.extraWidth = self.extraWidth! / CGFloat(self.numberOfSegment)
+        
         self.setUpSegmentSlideView()
+        
+        self.reSetButtonScale(0)
+        
+        self.resetTitleColor()
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -116,6 +129,18 @@ class GLSegmentSlideView: UIView {
         self.delegate?.didSelectSegment(self.currentIndex)
     }
     
+    /**
+    重置各个button的缩放比例
+    */
+    private func reSetButtonScale(index: Int)
+    {
+        for i in 0 ... 2 {
+            var tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + i) as! UIButton
+            tempButton.transform = index == i ? CGAffineTransformMakeScale( 1.0, 1.0) : CGAffineTransformMakeScale( 1.0 - originScale, 1.0 - originScale)
+        }
+    }
+    
+    
     //FIXME: 1.0 因为和updateBottomLineView冲突 会造成动画错位 暂时放弃使用
     //MARK: 设置底部横线的位置 和 宽度
     private func setBottomLineViewCenter(index: Int)
@@ -130,13 +155,24 @@ class GLSegmentSlideView: UIView {
         }, completion: nil)
     }
     
+    /**
+    设置颜色值
+    */
+    func resetTitleColor()
+    {
+        for index in 0 ... 2 {
+            var tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + index) as! UIButton
+            tempButton.setTitleColor(self.currentIndex == index ? currentColor : originColor, forState: UIControlState.Normal)
+        }
+    }
     
     /********************************** Public Methods  ***************************************/
     //MARK:- Public Methods
     //MARK:  实时更新底部按钮 外部滑动时调用
     /**
     设置底部滑动条的位置，根据外部传过来的offset
-
+    
+    - parameter offset: 外部的contentOffset
     */
     func updateBottomLineView(offset: CGFloat)
     {
@@ -144,8 +180,13 @@ class GLSegmentSlideView: UIView {
         var index : Int = Int(offset/ScreenWidth)
         self.currentIndex = index
         
+        
         //得到进度
         var progress : CGFloat = (offset - ScreenWidth * CGFloat(index)) / ScreenWidth
+        
+        if offset/ScreenWidth - CGFloat(index) == 0.0 {
+            self.resetTitleColor()
+        }
         
         var originRect : CGRect = self.bottomLineView.frame
         
@@ -158,6 +199,9 @@ class GLSegmentSlideView: UIView {
         if index < 0 {
             return
         }
+        
+        self.updateButtonFont(progress)
+        
         // 从新计算宽度和位置
         originRect.size.width = (self.titleWidthArray[index + 1] - self.titleWidthArray[index]) * progress + self.titleWidthArray[index]
         var subRadiusOfButton = (self.titleWidthArray[index + 1] - self.titleWidthArray[index]) / 2.0
@@ -166,6 +210,31 @@ class GLSegmentSlideView: UIView {
         self.bottomLineView.frame = originRect
     }
     
-
+    /**
+    实时更新字体大小根据滑动的进度
+    
+    - parameter progress: 从一个button到下一个item之间的进度
+    */
+    func updateButtonFont(progress: CGFloat){
+        var currentButton : UIButton = self.viewWithTag(self.currentIndex + tagOfBaseNumber) as! UIButton
+        var nextButton : UIButton = self.viewWithTag(self.currentIndex + 1 + tagOfBaseNumber) as! UIButton
+        
+        currentButton.transform = CGAffineTransformMakeScale(1.0 - originScale * progress, 1.0 - originScale * progress)
+        nextButton.transform = CGAffineTransformMakeScale(1.0 + originScale * (progress - 1), 1.0 + originScale * (progress - 1))
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

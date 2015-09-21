@@ -14,10 +14,11 @@
 		5447278E1BAAD2050052777B /* GLSegmentSlideVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5447278C1BAAD2050052777B /* GLSegmentSlideVC.swift */; };
 		5447278F1BAAD2050052777B /* GLSegmentSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5447278D1BAAD2050052777B /* GLSegmentSlideView.swift */; };
 		544727911BAAD2770052777B /* CommonLet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544727901BAAD2770052777B /* CommonLet.swift */; };
-		544727961BAAD2DE0052777B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 544727921BAAD2DE0052777B /* Default-568h@2x.png */; };
-		544727971BAAD2DE0052777B /* Default-6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 544727931BAAD2DE0052777B /* Default-6@2x.png */; };
-		544727981BAAD2DE0052777B /* Default-6s@3x-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 544727941BAAD2DE0052777B /* Default-6s@3x-1.png */; };
-		544727991BAAD2DE0052777B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 544727951BAAD2DE0052777B /* Default@2x.png */; };
+		548F2C341BAFDD5D00ECC37F /* Default-960h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C2F1BAFDD5D00ECC37F /* Default-960h@2x.png */; };
+		548F2C351BAFDD5D00ECC37F /* Default-1136h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C301BAFDD5D00ECC37F /* Default-1136h@2x.png */; };
+		548F2C361BAFDD5D00ECC37F /* Default-1242h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C311BAFDD5D00ECC37F /* Default-1242h@2x.png */; };
+		548F2C371BAFDD5D00ECC37F /* Default-1334h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C321BAFDD5D00ECC37F /* Default-1334h@2x.png */; };
+		548F2C381BAFDD5D00ECC37F /* Default-2208h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C331BAFDD5D00ECC37F /* Default-2208h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +43,11 @@
 		5447278C1BAAD2050052777B /* GLSegmentSlideVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLSegmentSlideVC.swift; sourceTree = "<group>"; };
 		5447278D1BAAD2050052777B /* GLSegmentSlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLSegmentSlideView.swift; sourceTree = "<group>"; };
 		544727901BAAD2770052777B /* CommonLet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonLet.swift; sourceTree = "<group>"; };
-		544727921BAAD2DE0052777B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		544727931BAAD2DE0052777B /* Default-6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-6@2x.png"; sourceTree = "<group>"; };
-		544727941BAAD2DE0052777B /* Default-6s@3x-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-6s@3x-1.png"; sourceTree = "<group>"; };
-		544727951BAAD2DE0052777B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		548F2C2F1BAFDD5D00ECC37F /* Default-960h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-960h@2x.png"; sourceTree = "<group>"; };
+		548F2C301BAFDD5D00ECC37F /* Default-1136h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1136h@2x.png"; sourceTree = "<group>"; };
+		548F2C311BAFDD5D00ECC37F /* Default-1242h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1242h@2x.png"; sourceTree = "<group>"; };
+		548F2C321BAFDD5D00ECC37F /* Default-1334h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1334h@2x.png"; sourceTree = "<group>"; };
+		548F2C331BAFDD5D00ECC37F /* Default-2208h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-2208h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +89,11 @@
 		544727691BAAD0A70052777B /* SegmentSlideViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				544727921BAAD2DE0052777B /* Default-568h@2x.png */,
-				544727931BAAD2DE0052777B /* Default-6@2x.png */,
-				544727941BAAD2DE0052777B /* Default-6s@3x-1.png */,
-				544727951BAAD2DE0052777B /* Default@2x.png */,
+				548F2C2F1BAFDD5D00ECC37F /* Default-960h@2x.png */,
+				548F2C301BAFDD5D00ECC37F /* Default-1136h@2x.png */,
+				548F2C311BAFDD5D00ECC37F /* Default-1242h@2x.png */,
+				548F2C321BAFDD5D00ECC37F /* Default-1334h@2x.png */,
+				548F2C331BAFDD5D00ECC37F /* Default-2208h@2x.png */,
 				5447276C1BAAD0A70052777B /* AppDelegate.swift */,
 				5447278C1BAAD2050052777B /* GLSegmentSlideVC.swift */,
 				5447278D1BAAD2050052777B /* GLSegmentSlideView.swift */,
@@ -176,7 +179,6 @@
 				TargetAttributes = {
 					544727661BAAD0A70052777B = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = CEFB2D4X4X;
 					};
 					5447277B1BAAD0A70052777B = {
 						CreatedOnToolsVersion = 6.4;
@@ -208,12 +210,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				544727991BAAD2DE0052777B /* Default@2x.png in Resources */,
+				548F2C371BAFDD5D00ECC37F /* Default-1334h@2x.png in Resources */,
 				544727771BAAD0A70052777B /* LaunchScreen.xib in Resources */,
-				544727971BAAD2DE0052777B /* Default-6@2x.png in Resources */,
+				548F2C341BAFDD5D00ECC37F /* Default-960h@2x.png in Resources */,
+				548F2C351BAFDD5D00ECC37F /* Default-1136h@2x.png in Resources */,
+				548F2C361BAFDD5D00ECC37F /* Default-1242h@2x.png in Resources */,
 				544727741BAAD0A70052777B /* Images.xcassets in Resources */,
-				544727981BAAD2DE0052777B /* Default-6s@3x-1.png in Resources */,
-				544727961BAAD2DE0052777B /* Default-568h@2x.png in Resources */,
+				548F2C381BAFDD5D00ECC37F /* Default-2208h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +356,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 龙 许 (CJQ6GVXUZJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SegmentSlideViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -366,7 +369,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 龙 许 (CJQ6GVXUZJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SegmentSlideViewDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

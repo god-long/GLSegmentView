@@ -45,6 +45,15 @@ class GLSegmentSlideView: UIView {
     
     /// 底部的滑动条
     var bottomLineView : UIView!
+    
+    /// 选中title的rgb颜色值
+    var selectColorRGBArray : [Int]!
+    
+    /// 未选中title的rgb颜色值
+    var originColorRGBArray : [Int]!
+    
+    /// 选中的rgb - 未选中的rgb的差值数组
+    var subArray : [Int]!
     /******************************** 全局常量 ****************************************/
     /// button的tag值得基数
     let tagOfBaseNumber : Int = 100
@@ -56,9 +65,9 @@ class GLSegmentSlideView: UIView {
     let originScale : CGFloat = 0.2
     
     /// 原始颜色值
-    let originColor : UIColor = UIColor.blackColor()
+    let originColorHex : NSString = "333333"
     
-    let currentColor : UIColor = UIColor.redColor()
+    let currentColorHex : NSString = "ff4770"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,6 +84,9 @@ class GLSegmentSlideView: UIView {
         //数组初始化
         self.titleWidthArray = []
         self.centerXArray = []
+        self.selectColorRGBArray = []
+        self.originColorRGBArray = []
+        self.subArray = []
         for title in titleArray {
             var rect : CGRect = title.boundingRectWithSize(CGSizeMake(1000, 20), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(titleSize)], context: nil)
             self.titleWidthArray.append(rect.size.width)
@@ -87,6 +99,9 @@ class GLSegmentSlideView: UIView {
         self.reSetButtonScale(0)
         
         self.resetTitleColor()
+        
+        self.getSubNumber(self.currentColorHex, originHexStr: self.originColorHex)
+
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -162,8 +177,86 @@ class GLSegmentSlideView: UIView {
     {
         for index in 0 ... 2 {
             var tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + index) as! UIButton
-            tempButton.setTitleColor(self.currentIndex == index ? currentColor : originColor, forState: UIControlState.Normal)
+            tempButton.setTitleColor(self.currentIndex == index ? self.getRGBColor(currentColorHex) : self.getRGBColor(originColorHex), forState: UIControlState.Normal)
         }
+    }
+    
+    /**
+    返回颜色值 根据传入的十六进制颜色值
+    
+    - parameter hex: 十六进制字符串  "123456"
+    
+    - returns: UIColor
+    */
+    func getRGBColor(hexStr: NSString) -> UIColor {
+        var range : NSRange! = NSMakeRange(0, 2)
+        range.location = 0
+        range.length = 2
+        //r
+        var rString = hexStr.substringWithRange(range)
+        //g
+        range.location = 2;
+        var gString = hexStr.substringWithRange(range)
+        //b
+        range.location = 4;
+        var bString = hexStr.substringWithRange(range)
+        
+        // Scan values
+        var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0;
+        NSScanner(string: rString).scanHexInt(&r)
+        NSScanner(string: gString).scanHexInt(&g)
+        NSScanner(string: bString).scanHexInt(&b)
+        return UIColor(red: (CGFloat(r) / 255.0), green: (CGFloat(g) / 255.0), blue: (CGFloat(b) / 255.0), alpha: 1)
+    }
+    
+    func getSubNumber(currentHexStr : NSString, originHexStr : NSString) ->(first : Int, second : Int, third : Int) {
+        
+        var first = 0, second = 0, third = 0
+        
+        var range : NSRange! = NSMakeRange(0, 2)
+        range.location = 0
+        range.length = 2
+        //r
+        var rStringOfCurrent = currentHexStr.substringWithRange(range)
+        var rStringOfOrigin = originHexStr.substringWithRange(range)
+        //g
+        range.location = 2;
+        var gStringOfCurrent = currentHexStr.substringWithRange(range)
+        var gStringOfOrigin = originHexStr.substringWithRange(range)
+        //b
+        range.location = 4;
+        var bStringOfCurrent = currentHexStr.substringWithRange(range)
+        var bStringOfOrigin = originHexStr.substringWithRange(range)
+        
+        // Scan values
+        var rCurrent:CUnsignedInt = 0, gCurrent:CUnsignedInt = 0, bCurrent:CUnsignedInt = 0,
+            rOrigin: CUnsignedInt = 0, gOrigin: CUnsignedInt = 0, bOrigin: CUnsignedInt = 0
+        
+        NSScanner(string: rStringOfCurrent).scanHexInt(&rCurrent)
+        NSScanner(string: gStringOfCurrent).scanHexInt(&gCurrent)
+        NSScanner(string: bStringOfCurrent).scanHexInt(&bCurrent)
+        
+        NSScanner(string: rStringOfOrigin).scanHexInt(&rOrigin)
+        NSScanner(string: gStringOfOrigin).scanHexInt(&gOrigin)
+        NSScanner(string: bStringOfOrigin).scanHexInt(&bOrigin)
+        
+        first = Int(rCurrent) - Int(rOrigin)
+        second = Int(gCurrent) - Int(gOrigin)
+        third = Int(bCurrent) - Int(bOrigin)
+        
+        self.selectColorRGBArray.append(Int(rCurrent))
+        self.selectColorRGBArray.append(Int(gCurrent))
+        self.selectColorRGBArray.append(Int(bCurrent))
+        
+        self.originColorRGBArray.append(Int(rOrigin))
+        self.originColorRGBArray.append(Int(gOrigin))
+        self.originColorRGBArray.append(Int(bOrigin))
+
+        self.subArray.append(first)
+        self.subArray.append(second)
+        self.subArray.append(third)
+
+        return (first, second, third)
     }
     
     /********************************** Public Methods  ***************************************/
@@ -184,9 +277,9 @@ class GLSegmentSlideView: UIView {
         //得到进度
         var progress : CGFloat = (offset - ScreenWidth * CGFloat(index)) / ScreenWidth
         
-        if offset/ScreenWidth - CGFloat(index) == 0.0 {
-            self.resetTitleColor()
-        }
+//        if offset/ScreenWidth - CGFloat(index) == 0.0 {
+//            self.resetTitleColor()
+//        }
         
         var originRect : CGRect = self.bottomLineView.frame
         
@@ -221,6 +314,18 @@ class GLSegmentSlideView: UIView {
         
         currentButton.transform = CGAffineTransformMakeScale(1.0 - originScale * progress, 1.0 - originScale * progress)
         nextButton.transform = CGAffineTransformMakeScale(1.0 + originScale * (progress - 1), 1.0 + originScale * (progress - 1))
+        
+        var rCurrent = CGFloat(self.selectColorRGBArray[0]) - CGFloat(self.subArray[0]) * progress,
+            gCurrent = CGFloat(self.selectColorRGBArray[1]) - CGFloat(self.subArray[1]) * progress,
+            bCurrent = CGFloat(self.selectColorRGBArray[2]) - CGFloat(self.subArray[2]) * progress,
+            rOrigin = CGFloat(self.originColorRGBArray[0]) + CGFloat(self.subArray[0]) * progress,
+            gOrigin = CGFloat(self.originColorRGBArray[1]) + CGFloat(self.subArray[1]) * progress,
+            bOrigin = CGFloat(self.originColorRGBArray[2]) + CGFloat(self.subArray[2]) * progress
+        
+        var currentColor : UIColor = UIColor(red: rCurrent / 255.0, green: gCurrent / 255.0, blue: bCurrent / 255.0, alpha: 1.0)
+        var originColor : UIColor = UIColor(red: rOrigin / 255.0, green: gOrigin / 255.0, blue: bOrigin / 255.0, alpha: 1.0)
+        currentButton.setTitleColor(currentColor, forState: UIControlState.Normal)
+        nextButton.setTitleColor(originColor, forState: UIControlState.Normal)
     }
     
     

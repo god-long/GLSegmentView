@@ -33,20 +33,20 @@ let currentModeSize = UIScreen.mainScreen().currentMode?.size
 let isPlus = UIScreen.instancesRespondToSelector("currentMode") ? CGSizeEqualToSize(CGSizeMake(1242, 2208), currentModeSize!) : false
 
 //判断字符串是否为空
-func trimString(#str:String)->String{
-    var nowStr = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet());
+func trimString(str str:String)->String{
+    let nowStr = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet());
     return nowStr
     }
 
 //去除空格和回车
-func trimLineString(#str:String)->String{
-    var nowStr = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+func trimLineString(str str:String)->String{
+    let nowStr = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     return nowStr
     }
 
 //根据键盘监控  获取键盘高度
-func getKeyBoardHeight(#aNotification:NSNotification)->CGFloat{
-    var uInfo   = aNotification.userInfo as NSDictionary!
+func getKeyBoardHeight(aNotification aNotification:NSNotification)->CGFloat{
+    let uInfo   = aNotification.userInfo as NSDictionary!
     let avalue = uInfo["UIKeyboardFrameEndUserInfoKey"] as! NSValue
     let keyrect : CGRect = avalue.CGRectValue()
     let keyheight : CGFloat = keyrect.size.height;
@@ -54,18 +54,22 @@ func getKeyBoardHeight(#aNotification:NSNotification)->CGFloat{
     }
 
 //获取目录下存储的json文件并解析为集合
-func getNativeJson(#filename : String,#fileext : String)->AnyObject{
+func getNativeJson(filename filename : String,fileext : String)->AnyObject{
     let pathsBun = NSBundle.mainBundle()
     let paths = pathsBun.pathForResource(filename, ofType : fileext)
-    var errors:NSError?
-    var content : NSData = NSData(contentsOfFile: paths!, options : .DataReadingMappedIfSafe, error: nil)!
-    var returneddata: AnyObject?  = NSJSONSerialization.JSONObjectWithData(content as NSData, options:NSJSONReadingOptions.MutableContainers, error:&errors)
+    let content : NSData = try! NSData(contentsOfFile: paths!, options : .DataReadingMappedIfSafe)
+    var returneddata: AnyObject?
+    do {
+        returneddata = try NSJSONSerialization.JSONObjectWithData(content as NSData, options:NSJSONReadingOptions.MutableContainers)
+    } catch let error as NSError {
+        returneddata = nil
+    }
     return returneddata!
 }
 
 //消息提醒
-func showAlertView(#title:String,#message:String){
-    var alert = UIAlertView()
+func showAlertView(title title:String,message:String){
+    let alert = UIAlertView()
     alert.title = title
     alert.message = message
     alert.addButtonWithTitle("好")
@@ -73,21 +77,21 @@ func showAlertView(#title:String,#message:String){
 }
 
 //获取本地存储数据
-func get_userDefaults(#key : String)->AnyObject?{
+func get_userDefaults(key key : String)->AnyObject?{
     var saveStr : AnyObject! = userDefault.objectForKey(key)
     saveStr = (saveStr == nil) ? "" : saveStr
     return saveStr
 }
 
 //存储数据
-func save_userDefaults(#key : String,#value:AnyObject?){
+func save_userDefaults(key key : String,value:AnyObject?){
     userDefault.setObject(value!, forKey:key)
 }
 
 //字符串转数组
-func stringToArray(#str:String)->NSArray{
+func stringToArray(str str:String)->NSArray{
     var dataArray:[String] = []
-    for items in str{
+    for _ in str.characters{
         dataArray.append("/(items)")
         }
     return dataArray

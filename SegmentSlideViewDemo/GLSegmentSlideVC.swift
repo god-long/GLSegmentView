@@ -53,7 +53,7 @@ class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVC
         self.view.addSubview(self.contentScrollView!)
         
         for var i = 0; i < 3; i++ {
-            var tempLabel : UILabel = UILabel(frame: CGRectMake(0, 0, 60, 50))
+            let tempLabel : UILabel = UILabel(frame: CGRectMake(0, 0, 60, 50))
             tempLabel.center = CGPointMake((ScreenWidth/2.0) + ScreenWidth * CGFloat(i), (CGRectGetHeight(self.contentScrollView!.frame))/2.0)
             tempLabel.backgroundColor = UIColor.whiteColor()
             tempLabel.textAlignment = NSTextAlignment.Center

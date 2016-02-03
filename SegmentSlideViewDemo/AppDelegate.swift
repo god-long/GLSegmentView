@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         self.window?.backgroundColor = UIColor.whiteColor()
         
-        var segmentVC = GLSegmentSlideVC()
+        let segmentVC = GLSegmentSlideVC()
         
-        var navigati = UINavigationController(rootViewController: segmentVC)
+        let navigati = UINavigationController(rootViewController: segmentVC)
         
         self.window?.rootViewController = navigati
         

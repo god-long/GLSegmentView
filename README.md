@@ -1,5 +1,7 @@
 # GLSegmentSlideView
 
+[![Join the chat at https://gitter.im/god-long/GLSegmentSlideView](https://badges.gitter.im/god-long/GLSegmentSlideView.svg)](https://gitter.im/god-long/GLSegmentSlideView?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## 标题分类控件
 
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](聊天室 URL)

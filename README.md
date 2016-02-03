@@ -2,8 +2,7 @@
 
 ## 标题分类控件
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](聊天室 URL)
-
+[![Gitter](https://badges.gitter.im/god-long/GLSegmentSlideView.svg)](https://gitter.im/god-long/GLSegmentSlideView?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 *   描述:
 
    *该控件一般和UIScrollView一起使用，点击控件通过代理回调给UIScrollView来

@@ -14,7 +14,7 @@ protocol GLSegmentSlideVCDelegate{
     
     - parameter index: 点击控件的下标
     */
-    func didSelectSegment(index : Int)
+    func didSelectSegment(_ index : Int)
 }
 
 
@@ -26,19 +26,19 @@ class GLSegmentSlideView: UIView {
     var delegate : GLSegmentSlideVCDelegate?
 
     /// 总共的控件数量
-    private var numberOfSegment : Int!
+    fileprivate var numberOfSegment : Int!
     
     /// 存放字符串
     var titleArray : NSArray!
     
     /// 存放每个title字符串的长度
-    private var titleWidthArray : [CGFloat]!
+    fileprivate var titleWidthArray : [CGFloat]!
     
     /// 存放每个button中心点X的数组
-    private var centerXArray : [CGFloat]!
+    fileprivate var centerXArray : [CGFloat]!
     
     /// 每个button除了字符宽度额外的宽度
-    private var extraWidth : CGFloat!
+    fileprivate var extraWidth : CGFloat!
     
     /// 当前选中的下标
     var currentIndex : Int!
@@ -88,7 +88,7 @@ class GLSegmentSlideView: UIView {
         self.originColorRGBArray = []
         self.subArray = []
         for title in titleArray {
-            let rect : CGRect = title.boundingRectWithSize(CGSizeMake(1000, 20), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont.systemFontOfSize(titleSize)], context: nil)
+            let rect : CGRect = (title as AnyObject).boundingRect(with: CGSize(width: 1000, height: 20), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: titleSize)], context: nil)
             self.titleWidthArray.append(rect.size.width)
             self.extraWidth = self.extraWidth! - rect.size.width
         }
@@ -111,33 +111,33 @@ class GLSegmentSlideView: UIView {
     /********************************** Privite Methods ***************************************/
     //MARK:- Privite Methods
     //MARK: 设置button
-    private func setUpSegmentSlideView()
+    fileprivate func setUpSegmentSlideView()
     {
         var buttonX : CGFloat = 0
         for index in 0 ... (numberOfSegment - 1) {
-            let tempButton : UIButton = UIButton(type: .Custom)
-            tempButton.setTitle(titleArray[index] as? String, forState: UIControlState.Normal)
-            tempButton.titleLabel?.font = UIFont.systemFontOfSize(titleSize)
-            tempButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-            tempButton.frame = CGRectMake(buttonX, 0, self.titleWidthArray[index] + self.extraWidth, self.frame.size.height)
+            let tempButton : UIButton = UIButton(type: .custom)
+            tempButton.setTitle(titleArray[index] as? String, for: UIControlState())
+            tempButton.titleLabel?.font = UIFont.systemFont(ofSize: titleSize)
+            tempButton.setTitleColor(UIColor.black, for: UIControlState())
+            tempButton.frame = CGRect(x: buttonX, y: 0, width: self.titleWidthArray[index] + self.extraWidth, height: self.frame.size.height)
             tempButton.tag = tagOfBaseNumber + index
-            tempButton.addTarget(self, action: Selector("buttonAction:"), forControlEvents: UIControlEvents.TouchUpInside)
+            tempButton.addTarget(self, action: #selector(GLSegmentSlideView.buttonAction(_:)), for: UIControlEvents.touchUpInside)
             self.addSubview(tempButton)
             buttonX += self.titleWidthArray[index] + self.extraWidth
             
             self.centerXArray.append(tempButton.center.x)
         }
         self.currentIndex = 0
-        self.bottomLineView = UIView(frame: CGRectMake(0, self.frame.size.height - 2, self.titleWidthArray[self.currentIndex], 2))
+        self.bottomLineView = UIView(frame: CGRect(x: 0, y: self.frame.size.height - 2, width: self.titleWidthArray[self.currentIndex], height: 2))
         self.bottomLineView.layer.cornerRadius = 1
-        self.bottomLineView.backgroundColor = UIColor.redColor()
+        self.bottomLineView.backgroundColor = UIColor.red
         self.bottomLineView.clipsToBounds = true
         self.setBottomLineViewCenter(self.currentIndex)
         self.addSubview(self.bottomLineView)
     }
     
     //MARK: 点击按钮的触发方法
-    internal func buttonAction(sender: UIButton)
+    internal func buttonAction(_ sender: UIButton)
     {
         self.currentIndex = sender.tag - tagOfBaseNumber
         
@@ -147,25 +147,25 @@ class GLSegmentSlideView: UIView {
     /**
     重置各个button的缩放比例
     */
-    private func reSetButtonScale(index: Int)
+    fileprivate func reSetButtonScale(_ index: Int)
     {
         for i in 0 ... 2 {
             let tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + i) as! UIButton
-            tempButton.transform = index == i ? CGAffineTransformMakeScale( 1.0, 1.0) : CGAffineTransformMakeScale( 1.0 - originScale, 1.0 - originScale)
+            tempButton.transform = index == i ? CGAffineTransform( scaleX: 1.0, y: 1.0) : CGAffineTransform( scaleX: 1.0 - originScale, y: 1.0 - originScale)
         }
     }
     
     
     //FIXME: 1.0 因为和updateBottomLineView冲突 会造成动画错位 暂时放弃使用
     //MARK: 设置底部横线的位置 和 宽度
-    private func setBottomLineViewCenter(index: Int)
+    fileprivate func setBottomLineViewCenter(_ index: Int)
     {
         let tempButton : UIButton = self.viewWithTag(index + tagOfBaseNumber) as! UIButton
         var originRect : CGRect = self.bottomLineView.frame
         originRect.origin.x = tempButton.center.x - (self.titleWidthArray[index])/2.0
         originRect.size.width = self.titleWidthArray[index]
         
-        UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.1, options: UIViewAnimationOptions(), animations: { () -> Void in
             self.bottomLineView.frame = originRect
         }, completion: nil)
     }
@@ -177,7 +177,7 @@ class GLSegmentSlideView: UIView {
     {
         for index in 0 ... 2 {
             let tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + index) as! UIButton
-            tempButton.setTitleColor(self.currentIndex == index ? self.getRGBColor(currentColorHex) : self.getRGBColor(originColorHex), forState: UIControlState.Normal)
+            tempButton.setTitleColor(self.currentIndex == index ? self.getRGBColor(currentColorHex) : self.getRGBColor(originColorHex), for: UIControlState())
         }
     }
     
@@ -188,28 +188,28 @@ class GLSegmentSlideView: UIView {
     
     - returns: UIColor
     */
-    func getRGBColor(hexStr: NSString) -> UIColor {
+    func getRGBColor(_ hexStr: NSString) -> UIColor {
         var range : NSRange! = NSMakeRange(0, 2)
         range.location = 0
         range.length = 2
         //r
-        let rString = hexStr.substringWithRange(range)
+        let rString = hexStr.substring(with: range)
         //g
         range.location = 2;
-        let gString = hexStr.substringWithRange(range)
+        let gString = hexStr.substring(with: range)
         //b
         range.location = 4;
-        let bString = hexStr.substringWithRange(range)
+        let bString = hexStr.substring(with: range)
         
         // Scan values
         var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0;
-        NSScanner(string: rString).scanHexInt(&r)
-        NSScanner(string: gString).scanHexInt(&g)
-        NSScanner(string: bString).scanHexInt(&b)
+        Scanner(string: rString).scanHexInt32(&r)
+        Scanner(string: gString).scanHexInt32(&g)
+        Scanner(string: bString).scanHexInt32(&b)
         return UIColor(red: (CGFloat(r) / 255.0), green: (CGFloat(g) / 255.0), blue: (CGFloat(b) / 255.0), alpha: 1)
     }
     
-    func getSubNumber(currentHexStr : NSString, originHexStr : NSString) ->(first : Int, second : Int, third : Int) {
+    func getSubNumber(_ currentHexStr : NSString, originHexStr : NSString) ->(first : Int, second : Int, third : Int) {
         
         var first = 0, second = 0, third = 0
         
@@ -217,28 +217,28 @@ class GLSegmentSlideView: UIView {
         range.location = 0
         range.length = 2
         //r
-        let rStringOfCurrent = currentHexStr.substringWithRange(range)
-        let rStringOfOrigin = originHexStr.substringWithRange(range)
+        let rStringOfCurrent = currentHexStr.substring(with: range)
+        let rStringOfOrigin = originHexStr.substring(with: range)
         //g
         range.location = 2;
-        let gStringOfCurrent = currentHexStr.substringWithRange(range)
-        let gStringOfOrigin = originHexStr.substringWithRange(range)
+        let gStringOfCurrent = currentHexStr.substring(with: range)
+        let gStringOfOrigin = originHexStr.substring(with: range)
         //b
         range.location = 4;
-        let bStringOfCurrent = currentHexStr.substringWithRange(range)
-        let bStringOfOrigin = originHexStr.substringWithRange(range)
+        let bStringOfCurrent = currentHexStr.substring(with: range)
+        let bStringOfOrigin = originHexStr.substring(with: range)
         
         // Scan values
         var rCurrent:CUnsignedInt = 0, gCurrent:CUnsignedInt = 0, bCurrent:CUnsignedInt = 0,
             rOrigin: CUnsignedInt = 0, gOrigin: CUnsignedInt = 0, bOrigin: CUnsignedInt = 0
         
-        NSScanner(string: rStringOfCurrent).scanHexInt(&rCurrent)
-        NSScanner(string: gStringOfCurrent).scanHexInt(&gCurrent)
-        NSScanner(string: bStringOfCurrent).scanHexInt(&bCurrent)
+        Scanner(string: rStringOfCurrent).scanHexInt32(&rCurrent)
+        Scanner(string: gStringOfCurrent).scanHexInt32(&gCurrent)
+        Scanner(string: bStringOfCurrent).scanHexInt32(&bCurrent)
         
-        NSScanner(string: rStringOfOrigin).scanHexInt(&rOrigin)
-        NSScanner(string: gStringOfOrigin).scanHexInt(&gOrigin)
-        NSScanner(string: bStringOfOrigin).scanHexInt(&bOrigin)
+        Scanner(string: rStringOfOrigin).scanHexInt32(&rOrigin)
+        Scanner(string: gStringOfOrigin).scanHexInt32(&gOrigin)
+        Scanner(string: bStringOfOrigin).scanHexInt32(&bOrigin)
         
         first = Int(rCurrent) - Int(rOrigin)
         second = Int(gCurrent) - Int(gOrigin)
@@ -267,7 +267,7 @@ class GLSegmentSlideView: UIView {
     
     - parameter offset: 外部的contentOffset
     */
-    func updateBottomLineView(offset: CGFloat)
+    func updateBottomLineView(_ offset: CGFloat)
     {
 
         let index : Int = Int(offset/ScreenWidth)
@@ -308,12 +308,12 @@ class GLSegmentSlideView: UIView {
     
     - parameter progress: 从一个button到下一个item之间的进度
     */
-    func updateButtonFont(progress: CGFloat){
+    func updateButtonFont(_ progress: CGFloat){
         let currentButton : UIButton = self.viewWithTag(self.currentIndex + tagOfBaseNumber) as! UIButton
         let nextButton : UIButton = self.viewWithTag(self.currentIndex + 1 + tagOfBaseNumber) as! UIButton
         
-        currentButton.transform = CGAffineTransformMakeScale(1.0 - originScale * progress, 1.0 - originScale * progress)
-        nextButton.transform = CGAffineTransformMakeScale(1.0 + originScale * (progress - 1), 1.0 + originScale * (progress - 1))
+        currentButton.transform = CGAffineTransform(scaleX: 1.0 - originScale * progress, y: 1.0 - originScale * progress)
+        nextButton.transform = CGAffineTransform(scaleX: 1.0 + originScale * (progress - 1), y: 1.0 + originScale * (progress - 1))
         
         var rCurrent = CGFloat(self.selectColorRGBArray[0]) - CGFloat(self.subArray[0]) * progress,
             gCurrent = CGFloat(self.selectColorRGBArray[1]) - CGFloat(self.subArray[1]) * progress,
@@ -324,8 +324,8 @@ class GLSegmentSlideView: UIView {
         
         let currentColor : UIColor = UIColor(red: rCurrent / 255.0, green: gCurrent / 255.0, blue: bCurrent / 255.0, alpha: 1.0)
         let originColor : UIColor = UIColor(red: rOrigin / 255.0, green: gOrigin / 255.0, blue: bOrigin / 255.0, alpha: 1.0)
-        currentButton.setTitleColor(currentColor, forState: UIControlState.Normal)
-        nextButton.setTitleColor(originColor, forState: UIControlState.Normal)
+        currentButton.setTitleColor(currentColor, for: UIControlState())
+        nextButton.setTitleColor(originColor, for: UIControlState())
     }
     
     

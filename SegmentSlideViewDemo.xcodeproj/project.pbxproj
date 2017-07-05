@@ -181,9 +181,11 @@
 				TargetAttributes = {
 					544727661BAAD0A70052777B = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0820;
 					};
 					5447277B1BAAD0A70052777B = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0820;
 						TestTargetID = 544727661BAAD0A70052777B;
 					};
 				};
@@ -365,6 +367,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c0209886-0f0e-4226-8214-d34462e49747";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -379,6 +382,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c0209886-0f0e-4226-8214-d34462e49747";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -397,6 +401,7 @@
 				INFOPLIST_FILE = SegmentSlideViewDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SegmentSlideViewDemo.app/SegmentSlideViewDemo";
 			};
 			name = Debug;
@@ -412,6 +417,7 @@
 				INFOPLIST_FILE = SegmentSlideViewDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SegmentSlideViewDemo.app/SegmentSlideViewDemo";
 			};
 			name = Release;

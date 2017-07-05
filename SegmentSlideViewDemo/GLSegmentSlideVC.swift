@@ -12,8 +12,8 @@ import UIKit
 
 class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVCDelegate {
 
-    /********************************** Propert  ***************************************/
-    //MARK:- Property·
+    /******************************* Propert  ************************************/
+    //MARK:- Property
     
     /// 分类滑动View
     var segmentView : GLSegmentSlideView?
@@ -22,67 +22,70 @@ class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVC
     var contentScrollView : UIScrollView?
 
     
-    /********************************** System Methods ***************************************/
+    /****************************** System Methods ***********************************/
     //MARK:- System Methods
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.orangeColor()
+        self.view.backgroundColor = UIColor.orange
         self.title = "SegmentSlideDemo"
         
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.segmentView = GLSegmentSlideView(frame: CGRectMake(0, 64, ScreenWidth, 50), titleArray: ["美天下","秀美甲","秀大咖"])
+        self.segmentView = GLSegmentSlideView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: 50), titleArray: ["纽约","思派国际","攒"])
         self.segmentView?.delegate = self
-        self.segmentView!.backgroundColor = UIColor.whiteColor()
+        self.segmentView!.backgroundColor = UIColor.white
         self.view.addSubview(self.segmentView!)
 
         
-        self.contentScrollView = UIScrollView(frame: CGRectMake(0, CGRectGetMinY(self.segmentView!.frame) + CGRectGetHeight(segmentView!.frame), ScreenWidth, ScreenHeight - CGRectGetMaxY(self.segmentView!.frame)))
-        self.contentScrollView!.backgroundColor = UIColor.orangeColor()
-        self.contentScrollView!.pagingEnabled = true
+        self.contentScrollView = UIScrollView(frame: CGRect(x: 0, y: self.segmentView!.frame.minY + segmentView!.frame.height, width: ScreenWidth, height: ScreenHeight - self.segmentView!.frame.maxY))
+        self.contentScrollView!.backgroundColor = UIColor.orange
+        self.contentScrollView!.isPagingEnabled = true
         self.contentScrollView!.bounces = false
-        self.contentScrollView!.contentSize = CGSizeMake(ScreenWidth * 3, 0)
+        self.contentScrollView!.contentSize = CGSize(width: ScreenWidth * 3, height: 0)
         self.contentScrollView!.delegate = self;
         self.view.addSubview(self.contentScrollView!)
         
-        for var i = 0; i < 3; i++ {
-            let tempLabel : UILabel = UILabel(frame: CGRectMake(0, 0, 60, 50))
-            tempLabel.center = CGPointMake((ScreenWidth/2.0) + ScreenWidth * CGFloat(i), (CGRectGetHeight(self.contentScrollView!.frame))/2.0)
-            tempLabel.backgroundColor = UIColor.whiteColor()
-            tempLabel.textAlignment = NSTextAlignment.Center
+        for i in 0 ..< 3 {
+            let tempLabel : UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
+            tempLabel.center = CGPoint(x: (ScreenWidth/2.0) + ScreenWidth * CGFloat(i), y: (self.contentScrollView!.frame.height)/2.0)
+            tempLabel.backgroundColor = UIColor.white
+            tempLabel.textAlignment = NSTextAlignment.center
             tempLabel.text = "第" + String(i) + "页"
-            tempLabel.font = UIFont.systemFontOfSize(14)
-            tempLabel.textColor = UIColor.redColor()
+            tempLabel.font = UIFont.systemFont(ofSize: 14)
+            tempLabel.textColor = UIColor.red
             self.contentScrollView!.addSubview(tempLabel)
         }
         
     }
 
     
-    /********************************** Privite Methods ***************************************/
+    /******************** Privite Methods ****************************/
     //MARK:- Privite Methods
+    
+    
+    
+    //MARK: - Delegate
     //MARK: UIScrollViewDelegate
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.segmentView?.updateBottomLineView(scrollView.contentOffset.x)
     }
     
     //MARK: SegmentSlideViewDelegate
-    func didSelectSegment(index: Int) {
-        self.contentScrollView!.setContentOffset(CGPointMake(CGFloat(index) * ScreenWidth, 0), animated: true)
+    func didSelectSegment(_ index: Int) {
+        self.contentScrollView!.setContentOffset(CGPoint(x: CGFloat(index) * ScreenWidth, y: 0), animated: true)
     }
 
     
 
     
-    
-    /********************************** MemoryWarn *****************************************/
+    /************************ MemoryWarn *******************************/
     //MARK:- MemoryWarn
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

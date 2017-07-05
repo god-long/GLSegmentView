@@ -11,90 +11,91 @@ import UIKit
 
 
 // 当前系统版本 
-let  version = (UIDevice.currentDevice().systemVersion as NSString).floatValue
+let  version = (UIDevice.current.systemVersion as NSString).floatValue
 
 // 屏幕宽度
-let ScreenHeight : CGFloat = UIScreen.mainScreen().bounds.height
+let ScreenHeight : CGFloat = UIScreen.main.bounds.height
 
 // 屏幕高度
-let ScreenWidth : CGFloat = UIScreen.mainScreen().bounds.width
+let ScreenWidth : CGFloat = UIScreen.main.bounds.width
 
 // 默认图片
 let defaultImg = UIImage(named: "photo_define")
 
 // NSUserDefault
-let userDefault = NSUserDefaults.standardUserDefaults()
+let userDefault = UserDefaults.standard
 
 // 通知中心
-let notice = NSNotificationCenter.defaultCenter()
+let notice = NotificationCenter.default
 
 //判断是不是plus
-let currentModeSize = UIScreen.mainScreen().currentMode?.size
-let isPlus = UIScreen.instancesRespondToSelector("currentMode") ? CGSizeEqualToSize(CGSizeMake(1242, 2208), currentModeSize!) : false
+let currentModeSize = UIScreen.main.currentMode?.size
+let isPlus = UIScreen.instancesRespond(to: #selector(getter: RunLoop.currentMode)) ? CGSize(width: 1242, height: 2208).equalTo(currentModeSize!) : false
 
 //判断字符串是否为空
-func trimString(str str:String)->String{
-    let nowStr = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet());
+func trimString(str:String)->String{
+    let nowStr = str.trimmingCharacters(in: CharacterSet.whitespaces);
     return nowStr
     }
 
 //去除空格和回车
-func trimLineString(str str:String)->String{
-    let nowStr = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+func trimLineString(str:String)->String{
+    let nowStr = str.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     return nowStr
     }
 
 //根据键盘监控  获取键盘高度
-func getKeyBoardHeight(aNotification aNotification:NSNotification)->CGFloat{
+func getKeyBoardHeight(aNotification:Notification)->CGFloat{
     let uInfo   = aNotification.userInfo as NSDictionary!
-    let avalue = uInfo["UIKeyboardFrameEndUserInfoKey"] as! NSValue
-    let keyrect : CGRect = avalue.CGRectValue()
+    let avalue = uInfo?["UIKeyboardFrameEndUserInfoKey"] as! NSValue
+    let keyrect : CGRect = avalue.cgRectValue
     let keyheight : CGFloat = keyrect.size.height;
     return keyheight
     }
 
 //获取目录下存储的json文件并解析为集合
-func getNativeJson(filename filename : String,fileext : String)->AnyObject{
-    let pathsBun = NSBundle.mainBundle()
-    let paths = pathsBun.pathForResource(filename, ofType : fileext)
-    let content : NSData = try! NSData(contentsOfFile: paths!, options : .DataReadingMappedIfSafe)
-    var returneddata: AnyObject?
-    do {
-        returneddata = try NSJSONSerialization.JSONObjectWithData(content as NSData, options:NSJSONReadingOptions.MutableContainers)
-    } catch let error as NSError {
-        returneddata = nil
-    }
-    return returneddata!
-}
+//func getNativeJson(filename : String,fileext : String)->AnyObject{
+//    let pathsBun = Bundle.main
+//    let paths = pathsBun.path(forResource: filename, ofType : fileext)
+//    let content : Data = try! Data(contentsOf: URL(fileURLWithPath: paths!), options : .mappedIfSafe)
+//    var returneddata: AnyObject?
+//    do {
+//        returneddata = try JSONSerialization
+////        returneddata = try JSONSerialization.jsonObject(with: content as Data, options:JSONSerialization.ReadingOptions.mutableContainers)
+//    } catch let error as NSError {
+//        returneddata = nil
+//    }
+//    return returneddata!
+//}
 
 //消息提醒
-func showAlertView(title title:String,message:String){
+func showAlertView(title:String,message:String){
     let alert = UIAlertView()
     alert.title = title
     alert.message = message
-    alert.addButtonWithTitle("好")
+    alert.addButton(withTitle: "好")
     alert.show()
 }
 
 //获取本地存储数据
-func get_userDefaults(key key : String)->AnyObject?{
-    var saveStr : AnyObject! = userDefault.objectForKey(key)
-    saveStr = (saveStr == nil) ? "" : saveStr
-    return saveStr
-}
+//func get_userDefaults(key : String)->AnyObject?{
+//    var saveStr : AnyObject! = userDefault.object(forKey: key) as AnyObject!
+//    saveStr = (saveStr == nil) ? "" : saveStr
+//    return saveStr
+//}
 
 //存储数据
-func save_userDefaults(key key : String,value:AnyObject?){
-    userDefault.setObject(value!, forKey:key)
+func save_userDefaults(key : String,value:AnyObject?){
+    userDefault.set(value!, forKey:key)
 }
 
 //字符串转数组
-func stringToArray(str str:String)->NSArray{
+func stringToArray(str:String)->NSArray{
     var dataArray:[String] = []
     for _ in str.characters{
         dataArray.append("/(items)")
         }
-    return dataArray
+    return dataArray as NSArray
     }
 
 

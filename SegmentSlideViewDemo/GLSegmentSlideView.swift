@@ -18,27 +18,30 @@ protocol GLSegmentSlideVCDelegate{
 }
 
 
-class GLSegmentSlideView: UIView {
+@IBDesignable class GLSegmentSlideView: UIView {
 
     /********************************** Propert  ***************************************/
-    //MARK:- Property
+    //MARK:- Public Property
     
-    var delegate : GLSegmentSlideVCDelegate?
+    public var delegate : GLSegmentSlideVCDelegate?
 
-    /// 总共的控件数量
-    fileprivate var numberOfSegment : Int!
-    
     /// 存放字符串
-    var titleArray : NSArray!
+    public var titleArray: [String]!
+    
+    
+    //MARK:- Private Property
     
     /// 存放每个title字符串的长度
-    fileprivate var titleWidthArray : [CGFloat]!
+    private var titleWidthArray : [CGFloat]!
     
     /// 存放每个button中心点X的数组
     fileprivate var centerXArray : [CGFloat]!
     
     /// 每个button除了字符宽度额外的宽度
     fileprivate var extraWidth : CGFloat!
+    
+    /// 总共的控件数量
+    public var numberOfSegment : Int!
     
     /// 当前选中的下标
     var currentIndex : Int!
@@ -54,7 +57,9 @@ class GLSegmentSlideView: UIView {
     
     /// 选中的rgb - 未选中的rgb的差值数组
     var subArray : [Int]!
+    
     /******************************** 全局常量 ****************************************/
+    //MARK:- 全局常量
     /// button的tag值得基数
     let tagOfBaseNumber : Int = 100
     
@@ -65,21 +70,61 @@ class GLSegmentSlideView: UIView {
     let originScale : CGFloat = 0.2
     
     /// 原始颜色值
-    let originColorHex : NSString = "333333"
+    @IBInspectable var originColorHex : NSString = "333333" {
+        didSet {
+            
+        }
+    }
     
-    let currentColorHex : NSString = "ff4770"
+    ///
+    @IBInspectable var currentColorHex : NSString = "ff4770" {
+        didSet {
+            
+        }
+    }
+    
+    /// 加载View
+    var contentView: UIView!
+    
+    /****************************** Init Methods *****************************/
+    
+    //MARK:- Init Methods
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // why: https://stackoverflow.com/questions/35700191/failed-to-render-instance-of-classname-the-agent-threw-an-exception-loading-nib
+        let bundle = Bundle(for: GLSegmentSlideView.self)
+        let nib = UINib(nibName: String(describing: GLSegmentSlideView.self), bundle: bundle)
+        contentView = nib.instantiate(withOwner: self, options: nil).first as! UIView
+        addSubview(contentView)
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        //然后可以在添加东西在contentVie上或者配置其它
+        self.commonInit()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        let bundle = Bundle(for: GLSegmentSlideView.self)
+        let nib = UINib(nibName: String(describing: GLSegmentSlideView.self), bundle: bundle)
+        contentView = nib.instantiate(withOwner: self, options: nil).first as! UIView
+        addSubview(contentView)
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        //然后可以在添加东西在contentVie上或者配置其它
+        self.commonInit()
     }
     
-    convenience init(frame: CGRect, titleArray : NSArray){
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    convenience init(frame: CGRect, titles : [String]){
         self.init(frame: frame)
-        if titleArray.count <= 0 {
+        if titles.count <= 0 {
             return;
         }
-        self.numberOfSegment = titleArray.count
-        self.titleArray = titleArray;
+        self.numberOfSegment = titles.count
+        self.titleArray = titles;
         self.extraWidth = ScreenWidth
         //数组初始化
         self.titleWidthArray = []
@@ -87,7 +132,7 @@ class GLSegmentSlideView: UIView {
         self.selectColorRGBArray = []
         self.originColorRGBArray = []
         self.subArray = []
-        for title in titleArray {
+        for title in titles {
             let rect : CGRect = (title as AnyObject).boundingRect(with: CGSize(width: 1000, height: 20), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: titleSize)], context: nil)
             self.titleWidthArray.append(rect.size.width)
             self.extraWidth = self.extraWidth! - rect.size.width
@@ -96,33 +141,73 @@ class GLSegmentSlideView: UIView {
         
         self.setUpSegmentSlideView()
         
-        self.reSetButtonScale(0)
+        self.resetButtonScale(0)
         
         self.resetTitleColor()
         
         self.getSubNumber(self.currentColorHex, originHexStr: self.originColorHex)
 
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    private func commonInit() {
+        self.extraWidth = ScreenWidth
+        //数组初始化
+        self.titleWidthArray = []
+        self.centerXArray = []
+        self.selectColorRGBArray = []
+        self.originColorRGBArray = []
+        self.subArray = []
+        self.getSubNumber(self.currentColorHex, originHexStr: self.originColorHex)
     }
     
-    /********************************** Privite Methods ***************************************/
+    /// 重新装载
+    public func loadTitles(titles: [String]) {
+
+        if titles.count <= 0 {
+            return;
+        }
+        self.numberOfSegment = titles.count
+        self.titleArray = titles;
+        self.extraWidth = ScreenWidth
+
+        self.titleWidthArray.removeAll()
+        self.centerXArray.removeAll()
+        
+        for title in titles {
+            let rect : CGRect = (title as AnyObject).boundingRect(with: CGSize(width: 1000, height: 20), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: titleSize)], context: nil)
+            self.titleWidthArray.append(rect.size.width)
+            self.extraWidth = self.extraWidth! - rect.size.width
+        }
+        self.extraWidth = self.extraWidth! / CGFloat(self.numberOfSegment)
+        
+        for aView in self.contentView.subviews {
+            aView.removeFromSuperview()
+        }
+        self.setUpSegmentSlideView()
+        
+        self.resetButtonScale(0)
+        
+        self.resetTitleColor()
+        
+//        self.getSubNumber(self.currentColorHex, originHexStr: self.originColorHex)
+    }
+
+    
+    /******************************** Privite Methods *********************************/
     //MARK:- Privite Methods
-    //MARK: 设置button
-    fileprivate func setUpSegmentSlideView()
-    {
+    //MARK: 设置button 和 bottomLine
+    fileprivate func setUpSegmentSlideView() {
+        
         var buttonX : CGFloat = 0
         for index in 0 ... (numberOfSegment - 1) {
             let tempButton : UIButton = UIButton(type: .custom)
-            tempButton.setTitle(titleArray[index] as? String, for: UIControlState())
+            tempButton.setTitle(titleArray[index], for: UIControlState())
             tempButton.titleLabel?.font = UIFont.systemFont(ofSize: titleSize)
             tempButton.setTitleColor(UIColor.black, for: UIControlState())
             tempButton.frame = CGRect(x: buttonX, y: 0, width: self.titleWidthArray[index] + self.extraWidth, height: self.frame.size.height)
             tempButton.tag = tagOfBaseNumber + index
             tempButton.addTarget(self, action: #selector(GLSegmentSlideView.buttonAction(_:)), for: UIControlEvents.touchUpInside)
-            self.addSubview(tempButton)
+            self.contentView.addSubview(tempButton)
             buttonX += self.titleWidthArray[index] + self.extraWidth
             
             self.centerXArray.append(tempButton.center.x)
@@ -133,23 +218,20 @@ class GLSegmentSlideView: UIView {
         self.bottomLineView.backgroundColor = UIColor.red
         self.bottomLineView.clipsToBounds = true
         self.setBottomLineViewCenter(self.currentIndex)
-        self.addSubview(self.bottomLineView)
+        self.contentView.addSubview(self.bottomLineView)
     }
     
     //MARK: 点击按钮的触发方法
-    internal func buttonAction(_ sender: UIButton)
-    {
+    internal func buttonAction(_ sender: UIButton) {
         self.currentIndex = sender.tag - tagOfBaseNumber
-        
         self.delegate?.didSelectSegment(self.currentIndex)
     }
     
     /**
     重置各个button的缩放比例
     */
-    fileprivate func reSetButtonScale(_ index: Int)
-    {
-        for i in 0 ... 2 {
+    fileprivate func resetButtonScale(_ index: Int) {
+        for i in 0 ... self.numberOfSegment - 1 {
             let tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + i) as! UIButton
             tempButton.transform = index == i ? CGAffineTransform( scaleX: 1.0, y: 1.0) : CGAffineTransform( scaleX: 1.0 - originScale, y: 1.0 - originScale)
         }
@@ -158,8 +240,7 @@ class GLSegmentSlideView: UIView {
     
     //FIXME: 1.0 因为和updateBottomLineView冲突 会造成动画错位 暂时放弃使用
     //MARK: 设置底部横线的位置 和 宽度
-    fileprivate func setBottomLineViewCenter(_ index: Int)
-    {
+    fileprivate func setBottomLineViewCenter(_ index: Int) {
         let tempButton : UIButton = self.viewWithTag(index + tagOfBaseNumber) as! UIButton
         var originRect : CGRect = self.bottomLineView.frame
         originRect.origin.x = tempButton.center.x - (self.titleWidthArray[index])/2.0
@@ -173,9 +254,8 @@ class GLSegmentSlideView: UIView {
     /**
     设置颜色值
     */
-    func resetTitleColor()
-    {
-        for index in 0 ... 2 {
+    func resetTitleColor() {
+        for index in 0 ... self.numberOfSegment - 1 {
             let tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + index) as! UIButton
             tempButton.setTitleColor(self.currentIndex == index ? self.getRGBColor(currentColorHex) : self.getRGBColor(originColorHex), for: UIControlState())
         }
@@ -209,6 +289,7 @@ class GLSegmentSlideView: UIView {
         return UIColor(red: (CGFloat(r) / 255.0), green: (CGFloat(g) / 255.0), blue: (CGFloat(b) / 255.0), alpha: 1)
     }
     
+    @discardableResult
     func getSubNumber(_ currentHexStr : NSString, originHexStr : NSString) ->(first : Int, second : Int, third : Int) {
         
         var first = 0, second = 0, third = 0
@@ -259,7 +340,7 @@ class GLSegmentSlideView: UIView {
         return (first, second, third)
     }
     
-    /********************************** Public Methods  ***************************************/
+    /******************************* Public Methods  ************************************/
     //MARK:- Public Methods
     //MARK:  实时更新底部按钮 外部滑动时调用
     /**
@@ -267,8 +348,7 @@ class GLSegmentSlideView: UIView {
     
     - parameter offset: 外部的contentOffset
     */
-    func updateBottomLineView(_ offset: CGFloat)
-    {
+    public func updateBottomLineView(_ offset: CGFloat) {
 
         let index : Int = Int(offset/ScreenWidth)
         self.currentIndex = index
@@ -308,14 +388,14 @@ class GLSegmentSlideView: UIView {
     
     - parameter progress: 从一个button到下一个item之间的进度
     */
-    func updateButtonFont(_ progress: CGFloat){
+    private func updateButtonFont(_ progress: CGFloat) {
         let currentButton : UIButton = self.viewWithTag(self.currentIndex + tagOfBaseNumber) as! UIButton
         let nextButton : UIButton = self.viewWithTag(self.currentIndex + 1 + tagOfBaseNumber) as! UIButton
         
         currentButton.transform = CGAffineTransform(scaleX: 1.0 - originScale * progress, y: 1.0 - originScale * progress)
         nextButton.transform = CGAffineTransform(scaleX: 1.0 + originScale * (progress - 1), y: 1.0 + originScale * (progress - 1))
         
-        var rCurrent = CGFloat(self.selectColorRGBArray[0]) - CGFloat(self.subArray[0]) * progress,
+        let rCurrent = CGFloat(self.selectColorRGBArray[0]) - CGFloat(self.subArray[0]) * progress,
             gCurrent = CGFloat(self.selectColorRGBArray[1]) - CGFloat(self.subArray[1]) * progress,
             bCurrent = CGFloat(self.selectColorRGBArray[2]) - CGFloat(self.subArray[2]) * progress,
             rOrigin = CGFloat(self.originColorRGBArray[0]) + CGFloat(self.subArray[0]) * progress,

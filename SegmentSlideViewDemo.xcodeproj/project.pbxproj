@@ -19,6 +19,8 @@
 		548F2C361BAFDD5D00ECC37F /* Default-1242h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C311BAFDD5D00ECC37F /* Default-1242h@2x.png */; };
 		548F2C371BAFDD5D00ECC37F /* Default-1334h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C321BAFDD5D00ECC37F /* Default-1334h@2x.png */; };
 		548F2C381BAFDD5D00ECC37F /* Default-2208h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 548F2C331BAFDD5D00ECC37F /* Default-2208h@2x.png */; };
+		62B377C81F0DD3180012F36E /* GLSegmentSlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B377C71F0DD3180012F36E /* GLSegmentSlideView.xib */; };
+		62B377CA1F0DE4420012F36E /* GLSegmentSlideVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62B377C91F0DE4420012F36E /* GLSegmentSlideVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		548F2C311BAFDD5D00ECC37F /* Default-1242h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1242h@2x.png"; sourceTree = "<group>"; };
 		548F2C321BAFDD5D00ECC37F /* Default-1334h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-1334h@2x.png"; sourceTree = "<group>"; };
 		548F2C331BAFDD5D00ECC37F /* Default-2208h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-2208h@2x.png"; sourceTree = "<group>"; };
+		62B377C71F0DD3180012F36E /* GLSegmentSlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLSegmentSlideView.xib; sourceTree = "<group>"; };
+		62B377C91F0DE4420012F36E /* GLSegmentSlideVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLSegmentSlideVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +100,9 @@
 				548F2C331BAFDD5D00ECC37F /* Default-2208h@2x.png */,
 				5447276C1BAAD0A70052777B /* AppDelegate.swift */,
 				5447278C1BAAD2050052777B /* GLSegmentSlideVC.swift */,
+				62B377C91F0DE4420012F36E /* GLSegmentSlideVC.xib */,
 				5447278D1BAAD2050052777B /* GLSegmentSlideView.swift */,
+				62B377C71F0DD3180012F36E /* GLSegmentSlideView.xib */,
 				544727901BAAD2770052777B /* CommonLet.swift */,
 				544727731BAAD0A70052777B /* Images.xcassets */,
 				544727751BAAD0A70052777B /* LaunchScreen.xib */,
@@ -176,7 +182,7 @@
 			attributes = {
 				LastSwiftMigration = 0710;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "___GL___";
 				TargetAttributes = {
 					544727661BAAD0A70052777B = {
@@ -215,6 +221,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				548F2C371BAFDD5D00ECC37F /* Default-1334h@2x.png in Resources */,
+				62B377CA1F0DE4420012F36E /* GLSegmentSlideVC.xib in Resources */,
+				62B377C81F0DD3180012F36E /* GLSegmentSlideView.xib in Resources */,
 				544727771BAAD0A70052777B /* LaunchScreen.xib in Resources */,
 				548F2C341BAFDD5D00ECC37F /* Default-960h@2x.png in Resources */,
 				548F2C351BAFDD5D00ECC37F /* Default-1136h@2x.png in Resources */,
@@ -288,14 +296,17 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -311,7 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -332,8 +343,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -349,9 +362,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -363,8 +377,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SegmentSlideViewDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "GL.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c0209886-0f0e-4226-8214-d34462e49747";
 				SWIFT_VERSION = 3.0;
@@ -378,8 +393,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SegmentSlideViewDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "GL.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c0209886-0f0e-4226-8214-d34462e49747";
 				SWIFT_VERSION = 3.0;
@@ -400,6 +416,7 @@
 				);
 				INFOPLIST_FILE = SegmentSlideViewDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "GL.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SegmentSlideViewDemo.app/SegmentSlideViewDemo";
@@ -416,6 +433,7 @@
 				);
 				INFOPLIST_FILE = SegmentSlideViewDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "GL.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SegmentSlideViewDemo.app/SegmentSlideViewDemo";

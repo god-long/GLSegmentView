@@ -6,30 +6,47 @@
 
 #### 描述:
 
-   *该控件一般和UIScrollView一起使用，点击控件通过代理回调给UIScrollView来
-    改变ContentOffset来达到控制页数的效果*
+   **该控件一般和UIScrollView一起使用，点击控件通过代理回调给UIScrollView来
+    改变ContentOffset来达到控制页数的效果**
 
 #### 功能:
 
      1. 可根据滑动的距离来实时更新底部线条的位置和宽度;
      2. 宽度是根据每个分割的控件title的宽度而定;
      3. 根据滑动距离使颜色渐变;
+     4. 支持code，xib，storyboard;
  
 #### 使用:
 
+**xib：**
 
 ```
-self.segmentView = GLSegmentSlideView(frame: CGRectMake(0, 64, ScreenWidth, 50), titleArray: ["美甲天下","美","秀美甲大咖"])
+        let titles =  ["路飞", "Medbanks", "One", "Piece", "god~long"]
+
+        self.segmentView.loadTitles(titles: titles)
+        self.segmentView.delegate = self
 
     //MARK: UIScrollViewDelegate
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-    self.segmentView?.updateBottomLineView(scrollView.contentOffset.x)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+       self.segmentView.updateBottomLineView(scrollView.contentOffset.x)
     }
 
-     //MARK: SegmentSlideViewDelegate
-    func didSelectSegment(index: Int) {
-    self.contentScrollView!.setContentOffset(CGPointMake(CGFloat(index) * ScreenWidth, 0), animated: true)
+    //MARK: SegmentSlideViewDelegate
+    func didSelectSegment(_ index: Int) {
+        // animated必须为false，如果想点击segment的时候也动画滑动，必须添加额外的参数控制
+        self.contentScrollView!.setContentOffset(CGPoint(x: CGFloat(index) * ScreenWidth, y: 0), animated: false)
     }
+
+```
+
+**code:**
+
+```
+         // 代码创建 需要去掉属性的IBOutlet
+        self.segmentView = GLSegmentSlideView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 50), titles: titles)
+        self.segmentView?.delegate = self
+        self.view.addSubview(self.segmentView!)
+
 
 ```
 
@@ -38,4 +55,4 @@ self.segmentView = GLSegmentSlideView(frame: CGRectMake(0, 64, ScreenWidth, 50),
  ![](https://github.com/god-long/GLSegmentSlideView/raw/master/segmentSlide.gif)
 
 
- **这个比较简单 主要是计算位置而已 后续会继续改进**
+ **如有意见，欢迎issue**

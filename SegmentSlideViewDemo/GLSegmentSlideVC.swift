@@ -79,12 +79,7 @@ class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVC
         self.segmentView.updateBottomLineView(scrollView.contentOffset.x)
     }
     
-    //MARK: SegmentSlideViewDelegate
-    func didSelectSegment(_ index: Int) {
-        // animated必须为false，如果想点击segment的时候也动画滑动，必须添加额外的参数控制
-        self.contentScrollView!.setContentOffset(CGPoint(x: CGFloat(index) * ScreenWidth, y: 0), animated: false)
-    }
-
+    
     
 
     

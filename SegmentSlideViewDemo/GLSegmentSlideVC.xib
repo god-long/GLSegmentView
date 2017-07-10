@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GLSegmentSlideVC" customModule="SegmentSlideViewDemo" customModuleProvider="target">
             <connections>
                 <outlet property="contentScrollView" destination="ibU-bw-7Xb" id="1lT-fV-znp"/>
-                <outlet property="segmentView" destination="cmx-2d-2Zr" id="hJf-gc-YXh"/>
+                <outlet property="segmentView" destination="cmx-2d-2Zr" id="dmJ-tK-GP6"/>
                 <outlet property="view" destination="iN0-l3-epB" id="XJR-e9-vXz"/>
             </connections>
         </placeholder>

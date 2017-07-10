@@ -8,51 +8,46 @@
 
 import UIKit
 
-
-
 class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVCDelegate {
 
-    /******************************* Propert  ************************************/
+    /******************************* Propert ************************************/
     //MARK:- Property
     
     /// 分类滑动View
-    var segmentView : GLSegmentSlideView?
+    @IBOutlet weak var segmentView : GLSegmentSlideView!
     
     /// 内容scrollView
-    var contentScrollView : UIScrollView?
+    @IBOutlet weak var contentScrollView : UIScrollView!
 
     
     /****************************** System Methods ***********************************/
     //MARK:- System Methods
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.orange
         self.title = "SegmentSlideDemo"
         
+        self.edgesForExtendedLayout = [.left, .bottom, .right]
         self.automaticallyAdjustsScrollViewInsets = false
         
-        self.segmentView = GLSegmentSlideView(frame: CGRect(x: 0, y: 64, width: ScreenWidth, height: 50), titleArray: ["纽约","思派国际","攒"])
+        let titles =  ["路飞", "Medbanks", "One", "Piece", "god~long"]
+
+        /* 
+         // 代码创建 需要去掉属性的IBOutlet
+        self.segmentView = GLSegmentSlideView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 50), titles: titles)
         self.segmentView?.delegate = self
-        self.segmentView!.backgroundColor = UIColor.white
         self.view.addSubview(self.segmentView!)
+         */
+
+        self.segmentView.loadTitles(titles: titles)
+        self.segmentView.delegate = self
 
         
-        self.contentScrollView = UIScrollView(frame: CGRect(x: 0, y: self.segmentView!.frame.minY + segmentView!.frame.height, width: ScreenWidth, height: ScreenHeight - self.segmentView!.frame.maxY))
-        self.contentScrollView!.backgroundColor = UIColor.orange
-        self.contentScrollView!.isPagingEnabled = true
-        self.contentScrollView!.bounces = false
-        self.contentScrollView!.contentSize = CGSize(width: ScreenWidth * 3, height: 0)
-        self.contentScrollView!.delegate = self;
-        self.view.addSubview(self.contentScrollView!)
+        self.contentScrollView!.contentSize = CGSize(width: ScreenWidth * CGFloat(titles.count), height: 0)
+
         
-        for i in 0 ..< 3 {
+        for i in 0 ..< titles.count {
             let tempLabel : UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
             tempLabel.center = CGPoint(x: (ScreenWidth/2.0) + ScreenWidth * CGFloat(i), y: (self.contentScrollView!.frame.height)/2.0)
             tempLabel.backgroundColor = UIColor.white
@@ -63,23 +58,31 @@ class GLSegmentSlideVC: UIViewController, UIScrollViewDelegate, GLSegmentSlideVC
             self.contentScrollView!.addSubview(tempLabel)
         }
         
+
     }
 
     
     /******************** Privite Methods ****************************/
     //MARK:- Privite Methods
-    
+
     
     
     //MARK: - Delegate
     //MARK: UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.segmentView?.updateBottomLineView(scrollView.contentOffset.x)
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.dateFormat = "HH:mm:ss.SSS"
+        print(formatter.string(from: Date()), terminator: "  ")
+        print(scrollView.contentOffset.x)
+        
+        self.segmentView.updateBottomLineView(scrollView.contentOffset.x)
     }
     
     //MARK: SegmentSlideViewDelegate
     func didSelectSegment(_ index: Int) {
-        self.contentScrollView!.setContentOffset(CGPoint(x: CGFloat(index) * ScreenWidth, y: 0), animated: true)
+        // animated必须为false，如果想点击segment的时候也动画滑动，必须添加额外的参数控制
+        self.contentScrollView!.setContentOffset(CGPoint(x: CGFloat(index) * ScreenWidth, y: 0), animated: false)
     }
 
     

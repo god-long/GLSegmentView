@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZkU-Bl-hKs">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--show GLSegmentView-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="GLSegmentView" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mh5-bn-k9S" customClass="GLSegmentView" customModule="GLSegmentView" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="PHJ-Xh-3UT"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVL-gC-wyn">
+                                <rect key="frame" x="0.0" y="114" width="375" height="553"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="maX-6X-H9P"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="mh5-bn-k9S" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="5cU-fp-KnP"/>
+                            <constraint firstItem="FVL-gC-wyn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LGd-6q-Cyu"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FVL-gC-wyn" secondAttribute="bottom" id="LfN-7W-HzZ"/>
+                            <constraint firstItem="FVL-gC-wyn" firstAttribute="top" secondItem="mh5-bn-k9S" secondAttribute="bottom" id="iA0-Nd-r0I"/>
+                            <constraint firstItem="mh5-bn-k9S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mvK-gr-5wk"/>
+                            <constraint firstAttribute="trailing" secondItem="mh5-bn-k9S" secondAttribute="trailing" id="ovw-NM-1r3"/>
+                            <constraint firstAttribute="trailing" secondItem="FVL-gC-wyn" secondAttribute="trailing" id="uAe-u8-yPX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="show GLSegmentView" id="l43-Nv-a2Q"/>
+                    <connections>
+                        <outlet property="contentScrollView" destination="FVL-gC-wyn" id="muX-NY-HOg"/>
+                        <outlet property="segmentView" destination="mh5-bn-k9S" id="csy-8k-zLu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1079.2" y="137.18140929535232"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0BF-Z5-5ce">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZkU-Bl-hKs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="saI-wL-46E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dih-zu-qcg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ebT-sh-aaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="312.80000000000001" y="-545.57721139430294"/>
+        </scene>
+    </scenes>
+</document>

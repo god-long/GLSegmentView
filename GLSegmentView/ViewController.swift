@@ -23,7 +23,7 @@ class ViewController: UIViewController, UIScrollViewDelegate, GLSegmentViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.orange
-        self.title = "SegmentSlideDemo"
+        self.title = "GLSegmentViewDemo"
         
         self.edgesForExtendedLayout = [.left, .bottom, .right]
         self.automaticallyAdjustsScrollViewInsets = false
@@ -64,7 +64,13 @@ class ViewController: UIViewController, UIScrollViewDelegate, GLSegmentViewDeleg
     /******************** Privite Methods ****************************/
     //MARK:- Privite Methods
     
-        
+    // MARK: 如果是iPhone需要屏幕旋转功能，必须添加此方法
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.segmentView.beforeLayoutIndex = self.segmentView.currentSelectIndex
+    }
+    
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

@@ -11,13 +11,20 @@
 
   * 可根据滑动的距离来实时更新底部线条的位置和宽度;
   * 宽度是根据每个分割的控件title的宽度而定;
-  * 根据滑动距离使颜色渐变;
+  * 根据滑动距离实时颜色渐变;
   * 支持code，xib，storyboard;
+  * 支持旋转
  
  
 #### 展示图
 
- ![](https://github.com/god-long/GLSegmentSlideView/raw/master/segmentSlide.gif)
+**iPhone**
+
+ ![](https://github.com/god-long/GLSegmentSlideView/raw/master/GLSegment-iPhone.gif)
+
+**iPad**
+
+ ![](https://github.com/god-long/GLSegmentSlideView/raw/master/GLSegment-iPad.gif)
 
 
 #### 使用:
@@ -52,6 +59,17 @@
         self.segmentView?.delegate = self
         self.view.addSubview(self.segmentView!)
 
+
+```
+
+**如果需要支持旋转**
+
+```
+    // MARK: 如果是iPhone需要屏幕旋转功能，必须添加此方法
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.segmentView.beforeLayoutIndex = self.segmentView.currentSelectIndex
+    }
 
 ```
 

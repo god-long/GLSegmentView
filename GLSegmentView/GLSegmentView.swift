@@ -1,7 +1,7 @@
 //
 //  SegmentSlideView.swift
 //  LongPratice
-//
+//  https://github.com/god-long/GLSegmentView
 //  Created by god、long on 15/9/16.
 //  Copyright (c) 2015年 ___GL___. All rights reserved.
 //
@@ -74,6 +74,7 @@ protocol GLSegmentViewDelegate{
         }
     }
     
+    /// 将要旋转之前的currentIndex记录
     public var beforeLayoutIndex: Int = 0
     
     public var currentSelectIndex: Int {
@@ -159,6 +160,7 @@ protocol GLSegmentViewDelegate{
         self.subArray = []
         self.configColorArray()
         self.currentIndex = 0
+        self.beforeLayoutIndex = self.currentIndex
         
         UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         
@@ -166,15 +168,9 @@ protocol GLSegmentViewDelegate{
     }
     
     
-    func handleDeviceOrientationDidChange() {
-        
-        print(UIDevice.current.orientation)
-        print(self.currentIndex)
-    }
-
-    
     /************************** Privite Methods ***************************/
     //MARK:- Privite Methods
+    
     //MARK: 设置button 和 bottomLine
     fileprivate func setUpSegmentSlideView() {
         self.buttonArray.removeAll()
@@ -213,9 +209,7 @@ protocol GLSegmentViewDelegate{
     }
     
     
-    /**
-    重置各个button的缩放比例
-    */
+    /// 重置各个button的缩放比例
     fileprivate func resetButtonScale() {
         for i in 0 ... self.titleArray.count - 1 {
             let tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + i) as! UIButton
@@ -224,10 +218,8 @@ protocol GLSegmentViewDelegate{
     }
     
     
-    /**
-    设置颜色值
-    */
-    func resetTitleColor() {
+    /// 设置颜色值
+    fileprivate func resetTitleColor() {
         for index in 0 ... self.titleArray.count - 1 {
             let tempButton : UIButton = self.viewWithTag(tagOfBaseNumber + index) as! UIButton
             tempButton.setTitleColor(self.currentIndex == index ? self.selectColor : self.normalColor, for: UIControlState())
@@ -235,7 +227,7 @@ protocol GLSegmentViewDelegate{
     }
     
     /// 配置选中的RGB数组、正常的RGB数组、差值RGB数组
-    func configColorArray() {
+    fileprivate func configColorArray() {
         
         var normalR: Float = 0.0, normalG: Float = 0.0, normalB: Float = 0.0,
         selectR: Float = 0.0 , selectG: Float = 0.0, selectB: Float = 0.0
@@ -279,7 +271,7 @@ protocol GLSegmentViewDelegate{
     //MARK: 点击按钮的触发方法
     @objc private func itemAction(_ button: UIButton) {
         let toIndex = button.tag - tagOfBaseNumber
-        self.updateBottomLineAndItem(toItemIndex: toIndex)
+        self.updateBottomLineAndItem(toItemIndex: toIndex, animated: true)
         self.currentIndex = toIndex
         self.delegate?.didSelectSegment(self.currentIndex)
     }
@@ -287,7 +279,7 @@ protocol GLSegmentViewDelegate{
     /// 点击更改bottomLine指示条和button颜色、大小
     /// 外界ScrollView滑动动画大约是0.3S
     /// - Parameter toIndex: 点击的item下标
-    fileprivate func updateBottomLineAndItem(toItemIndex toIndex: Int) {
+    fileprivate func updateBottomLineAndItem(toItemIndex toIndex: Int, animated: Bool) {
         
         // 底部View
         var originRect: CGRect = self.bottomLineView.frame
@@ -301,17 +293,47 @@ protocol GLSegmentViewDelegate{
         currentButton.setTitleColor(self.normalColor, for: UIControlState())
         toButton.setTitleColor(self.selectColor, for: UIControlState())
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+        if animated {
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+                self.bottomLineView.frame = originRect
+                currentButton.transform = CGAffineTransform(scaleX: 1.0 - self.originScale, y: 1.0 - self.originScale)
+                toButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            }) { finish in
+            }
+        }else {
             self.bottomLineView.frame = originRect
-            
             currentButton.transform = CGAffineTransform(scaleX: 1.0 - self.originScale, y: 1.0 - self.originScale)
             toButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        }) { finish in
-            
         }
     }
+    
+    /// 实时更新字体大小根据滑动的进度，此方法适用于用户滑动，不适用于点击item更换位置
+    ///
+    /// - Parameter progress: 从一个item到下一个item之间的进度
+    fileprivate func updateButtonFont(_ progress: CGFloat) {
+        let currentButton = self.buttonArray[self.currentIndex]
+        let nextButton = self.buttonArray[self.currentIndex + 1]
+        
+        currentButton.transform = CGAffineTransform(scaleX: 1.0 - originScale * progress, y: 1.0 - originScale * progress)
+        nextButton.transform = CGAffineTransform(scaleX: 1.0 + originScale * (progress - 1), y: 1.0 + originScale * (progress - 1))
+        
+        let rSelect = CGFloat(self.selectColorRGBArray[0]) - CGFloat(self.subArray[0]) * progress,
+        gSelect = CGFloat(self.selectColorRGBArray[1]) - CGFloat(self.subArray[1]) * progress,
+        bSelect = CGFloat(self.selectColorRGBArray[2]) - CGFloat(self.subArray[2]) * progress,
+        rNormal = CGFloat(self.normalColorRGBArray[0]) + CGFloat(self.subArray[0]) * progress,
+        gNormal = CGFloat(self.normalColorRGBArray[1]) + CGFloat(self.subArray[1]) * progress,
+        bNormal = CGFloat(self.normalColorRGBArray[2]) + CGFloat(self.subArray[2]) * progress
+        
+        let currentColor: UIColor = UIColor(red: rSelect / 255.0, green: gSelect / 255.0, blue: bSelect / 255.0, alpha: 1.0)
+        let originColor: UIColor = UIColor(red: rNormal / 255.0, green: gNormal / 255.0, blue: bNormal / 255.0, alpha: 1.0)
+        currentButton.setTitleColor(currentColor, for: UIControlState())
+        nextButton.setTitleColor(originColor, for: UIControlState())
+    }
+
 
     /// 重新装载
+    ///
+    /// - Parameter titles: 数据源
     fileprivate func loadTitles(titles: [String]) {
         
         if titles.count <= 0 {
@@ -343,14 +365,13 @@ protocol GLSegmentViewDelegate{
     //MARK:- Public Methods
     
     //MARK:  实时更新底部按钮 外部滑动时调用
-    /**
-    设置底部滑动条的位置，根据外部传过来的offset，当用户点击item来更换显示内容的时候，此方法不再适用
-     如果当前是第一个，用户点击最后一个（多于3个）时，外界监听的contentOffset（不管以何种方式监听的contentOffset）都不是连续的
-     这就会导致中间的item根据offset实时改变大小和颜色出现误差。不连续是因为应用程序正在接收的触发速度比屏幕刷新率快。
-    
-    - parameter offset: 外部的contentOffset
-    - parameter pageWidth: 外部滑动的控件一页的宽度
-    */
+    /// 设置底部滑动条的位置，根据外部传过来的offset，当用户点击item来更换显示内容的时候，此方法不再适用
+    /// 如果当前是第一个，用户点击最后一个（多于3个）时，外界监听的contentOffset（不管以何种方式监听的contentOffset）都不是连续的
+    /// 这就会导致中间的item根据offset实时改变大小和颜色出现误差。不连续是因为应用程序正在接收的触发速度比屏幕刷新率快。
+    ///
+    /// - Parameters:
+    ///   - offset: 外部的contentOffset
+    ///   - pageWidth: 外部滑动的控件一页的宽度
     public func updateSegmentView(_ offset: CGFloat, pageWidth: CGFloat) {
 
         let index: Int = Int(floor(offset/pageWidth))
@@ -376,37 +397,19 @@ protocol GLSegmentViewDelegate{
         self.bottomLineView.frame = originRect
     }
     
-    /**
-    实时更新字体大小根据滑动的进度，此方法适用于用户滑动，不适用于点击item更换位置
     
-    - parameter progress: 从一个item到下一个item之间的进度
-    */
-    fileprivate func updateButtonFont(_ progress: CGFloat) {
-        let currentButton = self.buttonArray[self.currentIndex]
-        let nextButton = self.buttonArray[self.currentIndex + 1]
-        
-        currentButton.transform = CGAffineTransform(scaleX: 1.0 - originScale * progress, y: 1.0 - originScale * progress)
-        nextButton.transform = CGAffineTransform(scaleX: 1.0 + originScale * (progress - 1), y: 1.0 + originScale * (progress - 1))
-        
-        let rSelect = CGFloat(self.selectColorRGBArray[0]) - CGFloat(self.subArray[0]) * progress,
-            gSelect = CGFloat(self.selectColorRGBArray[1]) - CGFloat(self.subArray[1]) * progress,
-            bSelect = CGFloat(self.selectColorRGBArray[2]) - CGFloat(self.subArray[2]) * progress,
-            rNormal = CGFloat(self.normalColorRGBArray[0]) + CGFloat(self.subArray[0]) * progress,
-            gNormal = CGFloat(self.normalColorRGBArray[1]) + CGFloat(self.subArray[1]) * progress,
-            bNormal = CGFloat(self.normalColorRGBArray[2]) + CGFloat(self.subArray[2]) * progress
-        
-        let currentColor: UIColor = UIColor(red: rSelect / 255.0, green: gSelect / 255.0, blue: bSelect / 255.0, alpha: 1.0)
-        let originColor: UIColor = UIColor(red: rNormal / 255.0, green: gNormal / 255.0, blue: bNormal / 255.0, alpha: 1.0)
-        currentButton.setTitleColor(currentColor, for: UIControlState())
-        nextButton.setTitleColor(originColor, for: UIControlState())
+    //MARK: 屏幕旋转监听 在layoutSubviews之前 把下标记录
+    func handleDeviceOrientationDidChange() {
+        self.beforeLayoutIndex = self.currentIndex
     }
-    
-    
-    
+
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.loadTitles(titles: self.titleArray)
-        self.delegate?.didSelectSegment(self.currentIndex)
+        self.updateBottomLineAndItem(toItemIndex: self.beforeLayoutIndex, animated: false)
+        self.currentIndex = self.beforeLayoutIndex
+        self.delegate?.didSelectSegment(self.beforeLayoutIndex)
     }
     
 }

@@ -20,11 +20,11 @@
 
 **iPhone**
 
- ![](https://github.com/god-long/GLSegmentSlideView/raw/master/GLSegment-iPhone.gif)
+ ![](https://github.com/god-long/GLSegmentSlideView/raw/master/GLSegmentView-iPhone.gif)
 
 **iPad**
 
- ![](https://github.com/god-long/GLSegmentSlideView/raw/master/GLSegment-iPad.gif)
+ ![](https://github.com/god-long/GLSegmentSlideView/raw/master/GLSegmentView-iPad.gif)
 
 
 #### 使用:

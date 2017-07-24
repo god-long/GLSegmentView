@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GLSegmentViewDelegate{
+public protocol GLSegmentViewDelegate {
     /**
     点击某个控件代理执行的方法
     
@@ -19,7 +19,7 @@ protocol GLSegmentViewDelegate{
 
 
 
-@IBDesignable class GLSegmentView: UIView {
+@IBDesignable open class GLSegmentView: UIView {
 
     /********************** Propert  **********************/
     //MARK:- Public Property
@@ -121,7 +121,7 @@ protocol GLSegmentViewDelegate{
     /************************ Init Methods *************************/
     //MARK:- Init Methods
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         // why: https://stackoverflow.com/questions/35700191/failed-to-render-instance-of-classname-the-agent-threw-an-exception-loading-nib
@@ -404,7 +404,7 @@ protocol GLSegmentViewDelegate{
     }
 
 
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         self.loadTitles(titles: self.titleArray)
         self.updateBottomLineAndItem(toItemIndex: self.beforeLayoutIndex, animated: false)

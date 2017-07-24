@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		62519FB41F25EAD200B033B8 /* GLSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62519FB21F25EAD200B033B8 /* GLSegmentView.swift */; };
+		62519FB51F25EAD200B033B8 /* GLSegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62519FB31F25EAD200B033B8 /* GLSegmentView.xib */; };
 		62C043491F1EFC1700FD6D38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C043481F1EFC1700FD6D38 /* AppDelegate.swift */; };
 		62C0434B1F1EFC1700FD6D38 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C0434A1F1EFC1700FD6D38 /* ViewController.swift */; };
 		62C0434E1F1EFC1700FD6D38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62C0434C1F1EFC1700FD6D38 /* Main.storyboard */; };
 		62C043501F1EFC1700FD6D38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62C0434F1F1EFC1700FD6D38 /* Assets.xcassets */; };
 		62C043531F1EFC1700FD6D38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62C043511F1EFC1700FD6D38 /* LaunchScreen.storyboard */; };
-		62C0435B1F1EFDF800FD6D38 /* GLSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62C0435A1F1EFDF800FD6D38 /* GLSegmentView.swift */; };
-		62C0435D1F1EFE1300FD6D38 /* GLSegmentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62C0435C1F1EFE1300FD6D38 /* GLSegmentView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		62519FB21F25EAD200B033B8 /* GLSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLSegmentView.swift; sourceTree = "<group>"; };
+		62519FB31F25EAD200B033B8 /* GLSegmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLSegmentView.xib; sourceTree = "<group>"; };
 		62C043451F1EFC1700FD6D38 /* GLSegmentView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GLSegmentView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62C043481F1EFC1700FD6D38 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62C0434A1F1EFC1700FD6D38 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,8 +26,6 @@
 		62C0434F1F1EFC1700FD6D38 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62C043521F1EFC1700FD6D38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		62C043541F1EFC1700FD6D38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		62C0435A1F1EFDF800FD6D38 /* GLSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLSegmentView.swift; sourceTree = "<group>"; };
-		62C0435C1F1EFE1300FD6D38 /* GLSegmentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GLSegmentView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		62519FB11F25EAD200B033B8 /* GLSegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				62519FB21F25EAD200B033B8 /* GLSegmentView.swift */,
+				62519FB31F25EAD200B033B8 /* GLSegmentView.xib */,
+			);
+			path = GLSegmentView;
+			sourceTree = "<group>";
+		};
 		62C0433C1F1EFC1700FD6D38 = {
 			isa = PBXGroup;
 			children = (
@@ -58,11 +67,10 @@
 		62C043471F1EFC1700FD6D38 /* GLSegmentView */ = {
 			isa = PBXGroup;
 			children = (
+				62519FB11F25EAD200B033B8 /* GLSegmentView */,
 				62C043481F1EFC1700FD6D38 /* AppDelegate.swift */,
 				62C0434C1F1EFC1700FD6D38 /* Main.storyboard */,
 				62C0434A1F1EFC1700FD6D38 /* ViewController.swift */,
-				62C0435A1F1EFDF800FD6D38 /* GLSegmentView.swift */,
-				62C0435C1F1EFE1300FD6D38 /* GLSegmentView.xib */,
 				62C0434F1F1EFC1700FD6D38 /* Assets.xcassets */,
 				62C043511F1EFC1700FD6D38 /* LaunchScreen.storyboard */,
 				62C043541F1EFC1700FD6D38 /* Info.plist */,
@@ -133,7 +141,7 @@
 				62C043531F1EFC1700FD6D38 /* LaunchScreen.storyboard in Resources */,
 				62C043501F1EFC1700FD6D38 /* Assets.xcassets in Resources */,
 				62C0434E1F1EFC1700FD6D38 /* Main.storyboard in Resources */,
-				62C0435D1F1EFE1300FD6D38 /* GLSegmentView.xib in Resources */,
+				62519FB51F25EAD200B033B8 /* GLSegmentView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +154,7 @@
 			files = (
 				62C0434B1F1EFC1700FD6D38 /* ViewController.swift in Sources */,
 				62C043491F1EFC1700FD6D38 /* AppDelegate.swift in Sources */,
-				62C0435B1F1EFDF800FD6D38 /* GLSegmentView.swift in Sources */,
+				62519FB41F25EAD200B033B8 /* GLSegmentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

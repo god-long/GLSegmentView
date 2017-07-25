@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  GLSegmentView
+//  GLSegmentViewDemo
 //
-//  Created by 许龙 on 2017/7/19.
+//  Created by 许龙 on 2017/7/25.
 //  Copyright © 2017年 loongod. All rights reserved.
 //
 

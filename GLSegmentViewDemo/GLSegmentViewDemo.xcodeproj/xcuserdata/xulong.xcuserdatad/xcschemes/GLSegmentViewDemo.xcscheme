@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "62C043441F1EFC1700FD6D38"
-               BuildableName = "GLSegmentView.app"
-               BlueprintName = "GLSegmentView"
-               ReferencedContainer = "container:GLSegmentView.xcodeproj">
+               BlueprintIdentifier = "62519FBE1F272FBC00B033B8"
+               BuildableName = "GLSegmentViewDemo.app"
+               BlueprintName = "GLSegmentViewDemo"
+               ReferencedContainer = "container:GLSegmentViewDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "62C043441F1EFC1700FD6D38"
-            BuildableName = "GLSegmentView.app"
-            BlueprintName = "GLSegmentView"
-            ReferencedContainer = "container:GLSegmentView.xcodeproj">
+            BlueprintIdentifier = "62519FBE1F272FBC00B033B8"
+            BuildableName = "GLSegmentViewDemo.app"
+            BlueprintName = "GLSegmentViewDemo"
+            ReferencedContainer = "container:GLSegmentViewDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "62C043441F1EFC1700FD6D38"
-            BuildableName = "GLSegmentView.app"
-            BlueprintName = "GLSegmentView"
-            ReferencedContainer = "container:GLSegmentView.xcodeproj">
+            BlueprintIdentifier = "62519FBE1F272FBC00B033B8"
+            BuildableName = "GLSegmentViewDemo.app"
+            BlueprintName = "GLSegmentViewDemo"
+            ReferencedContainer = "container:GLSegmentViewDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "62C043441F1EFC1700FD6D38"
-            BuildableName = "GLSegmentView.app"
-            BlueprintName = "GLSegmentView"
-            ReferencedContainer = "container:GLSegmentView.xcodeproj">
+            BlueprintIdentifier = "62519FBE1F272FBC00B033B8"
+            BuildableName = "GLSegmentViewDemo.app"
+            BlueprintName = "GLSegmentViewDemo"
+            ReferencedContainer = "container:GLSegmentViewDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

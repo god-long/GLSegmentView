@@ -125,8 +125,12 @@ public protocol GLSegmentViewDelegate {
         super.init(coder: aDecoder)
         
         // why: https://stackoverflow.com/questions/35700191/failed-to-render-instance-of-classname-the-agent-threw-an-exception-loading-nib
-        let bundle = Bundle(for: GLSegmentView.self)
-        let nib = UINib(nibName: String(describing: GLSegmentView.self), bundle: bundle)
+        let bundlePath = Bundle(for: GLSegmentView.self).path(forResource: "GLSegmentView", ofType: "bundle")
+        
+        assert(bundlePath != nil, "bundlePath is nil")
+        
+        let segmentBundle = Bundle(path: bundlePath!)
+        let nib = UINib(nibName: String(describing: GLSegmentView.self), bundle: segmentBundle)
         self.contentView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         self.addSubview(contentView)
         self.contentView.frame = bounds
@@ -141,9 +145,8 @@ public protocol GLSegmentViewDelegate {
         
         let bundlePath = Bundle(for: GLSegmentView.self).path(forResource: "GLSegmentView", ofType: "bundle")
 
-        assert(bundlePath == nil, "bundlePath is nil")
+        assert(bundlePath != nil, "bundlePath is nil")
 
-        
         let segmentBundle = Bundle(path: bundlePath!)
         let nib = UINib(nibName: String(describing: GLSegmentView.self), bundle: segmentBundle)
         self.contentView = nib.instantiate(withOwner: self, options: nil).first as! UIView

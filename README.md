@@ -34,15 +34,15 @@
 pod 'GLSegmentView'
 ```
 
-因为使用了xib文件，支持在storyboard和xib中使用该控件，导致在使用时，storyboard和xib找不到该控件的module。
-当前如果通过pod安装，并且在storyboard或者xib中使用的话，需要手动更改如图：(会有编译报错，运行没问题，待解决)
+因为使用了`xib`文件，支持在`storyboard`和`xib`中使用该控件，导致在使用时，`storyboard`和`xib`找不到该控件的`module`。
+当前如果通过**pod**安装，并且在`storyboard`或者`xib`中使用的话，需要手动更改如图：(会有编译报错，运行没问题，待解决)
 
  ![](https://github.com/god-long/GLSegmentSlideView/raw/master/pod-use.png)
 
 
 ### 手动（当前鼓励的方式）
 
-下载文件，添加GLSegmentView.swift和GLSegmentView.xib到工程文件中即可。
+下载文件，添加**GLSegmentView.swift**和**GLSegmentView.xib**到工程文件中即可。
 
 ## 使用:
 
@@ -89,7 +89,16 @@ pod 'GLSegmentView'
         self.segmentView?.delegate = self
         self.view.addSubview(self.segmentView!)
 
+    //MARK: UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.segmentView.updateSegmentView(scrollView.contentOffset.x, pageWidth: scrollView.frame.width)
+    }
 
+    //MARK: SegmentSlideViewDelegate
+    func didSelectSegment(_ index: Int) {
+        // animated必须为false，如果想点击segment的时候也动画滑动，必须添加额外的参数控制
+        self.contentScrollView!.setContentOffset(CGPoint(x: CGFloat(index) * ScreenWidth, y: 0), animated: false)
+    }
 ```
 
 

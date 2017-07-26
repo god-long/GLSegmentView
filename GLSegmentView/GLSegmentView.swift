@@ -136,11 +136,16 @@ public protocol GLSegmentViewDelegate {
     }
     
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         
-        let bundle = Bundle(for: GLSegmentView.self)
-        let nib = UINib(nibName: String(describing: GLSegmentView.self), bundle: bundle)
+        let bundlePath = Bundle(for: GLSegmentView.self).path(forResource: "GLSegmentView", ofType: "bundle")
+
+        assert(bundlePath == nil, "bundlePath is nil")
+
+        
+        let segmentBundle = Bundle(path: bundlePath!)
+        let nib = UINib(nibName: String(describing: GLSegmentView.self), bundle: segmentBundle)
         self.contentView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         self.addSubview(contentView)
         self.contentView.frame = bounds
